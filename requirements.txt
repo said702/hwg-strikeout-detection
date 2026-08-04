@@ -1,0 +1,13 @@
+matplotlib
+numpy
+opencv-python
+openpyxl
+pandas
+pillow
+pyyaml
+pytest
+requests
+scikit-learn
+timm
+tqdm
+ultralytics

@@ -1,0 +1,14 @@
+# NOTE: YOLO weights are forced to `yolo26n-cls.pt` by project override.
+model:
+  weights: yolo26n-cls.pt
+  image_size: 224
+
+training:
+  batch_size: 32
+  predict_batch_size: 128
+  predict_chunk_size: 1024
+  patience: 10
+  workers: 0
+  class_weighted_loss: true
+  balanced_batches: false
+

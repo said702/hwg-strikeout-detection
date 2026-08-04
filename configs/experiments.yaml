@@ -1,0 +1,123 @@
+run:
+  seed: 42
+  output_dir: results
+  data_sources: configs/data_sources.yaml
+
+experiments:
+  cross_dataset:
+    enabled: true
+    models: [yolo, dino]
+    epochs: 40
+    val_ratio: 0.2
+    train_datasets:
+      - HWG-collected
+      - HWG-SOW
+      - HWG-written
+      - HWG-synthetic
+      - SWS
+    eval_datasets:
+      - HWG-collected
+      - HWG-SOW
+      - HWG-written
+      - HWG-synthetic
+      - SWS
+
+  intra:
+    enabled: true
+    models: [yolo, dino]
+    epochs: 40
+    folds: 10
+    val_ratio_of_train: 0.2
+    datasets:
+      - HWG-collected
+      - HWG-SOW
+      - HWG-written
+      - HWG-synthetic
+      - SWS
+
+  strike_type_analysis:
+    enabled: true
+    model: yolo
+    epochs: 40
+    val_ratio: 0.2
+    reuse_cross_dataset_models: true
+    train_datasets:
+      - HWG-written
+      - HWG-collected
+    evaluation_by_train_dataset:
+      HWG-written:
+        - HWG-collected
+        - HWG-SOW
+        - HWG-synthetic
+        - SWS
+      HWG-collected:
+        - HWG-written
+        - HWG-SOW
+        - HWG-synthetic
+        - SWS
+    strike_types:
+      - single-horizontal
+      - single-oblique
+      - multiple-horizontal
+      - multiple-oblique
+      - crossed
+      - circled
+      - wavy
+      - zigzag
+      - blackened
+
+  leave_one_type_out:
+    enabled: true
+    model: yolo
+    epochs: 40
+    val_ratio: 0.2
+    train_dataset: HWG-written
+    eval_clean_dataset: HWG-collected
+    strike_types:
+      - single-horizontal
+      - single-oblique
+      - multiple-horizontal
+      - multiple-oblique
+      - crossed
+      - circled
+      - wavy
+      - zigzag
+      - blackened
+
+  single_type_training:
+    enabled: true
+    model: yolo
+    epochs: 40
+    train_dataset: HWG-written
+    train_clean_dataset: HWG-written
+    eval_clean_dataset: HWG-collected
+    split_ratios: [0.70, 0.15, 0.15]
+    strike_types:
+      - single-horizontal
+      - single-oblique
+      - multiple-horizontal
+      - multiple-oblique
+      - crossed
+      - circled
+      - wavy
+      - zigzag
+      - blackened
+
+  learning_curve:
+    enabled: true
+    model: yolo
+    epochs: 40
+    val_ratio: 0.2
+    train_dataset: HWG-written
+    fixed_test_ratio: 0.15
+    keep_checkpoint: false
+    eval_datasets:
+      - HWG-collected
+      - HWG-SOW
+      - HWG-written-test
+      - SWS
+    repetitions: 10
+    sample_sizes:
+      start: 10
+      stop: 500
+      step: 10

@@ -1,0 +1,34 @@
+datasets:
+  hwg:
+    kind: zenodo
+    record_id: 21560739
+    doi: 10.5281/zenodo.21560739
+    target_dir: data/HWG-Dataset
+    subsets:
+      - HWG-collected
+      - HWG-SOW
+      - HWG-written
+      - HWG-synthetic
+
+  sow:
+    kind: local_request_only
+    dataset_root: null  # set to your SOW folder (request-only)
+    annotation_root: data/HWG-Dataset/HWG-Dataset/HWG-SOW-labels
+    annotation_file: gt.csv
+    train_images: train_sow/images
+    train_labels: train_sow/labels
+    test_images: SOW_test/images
+    test_labels: SOW_test/labels
+
+  iam:
+    kind: local_restricted
+    words_root: null  # set to your extracted IAM words/ directory (see README)
+    official_url: https://fki.tic.heia-fr.ch/databases/download-the-iam-handwriting-database
+    required_archive: data/words.tgz
+
+  sws:
+    kind: zenodo
+    record_id: 4765063
+    doi: 10.5281/zenodo.4765063
+    target_dir: data/SWS
+    enabled: true
